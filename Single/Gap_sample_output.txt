@@ -1,0 +1,67 @@
+movers
+{'change': -0.2834067547723935, 'description': 'Kandi Technologies Group, Inc. - Common Stock', 'direction': 'down', 'last': 9.76, 'symbol': 'KNDI', 'totalVolume': 45992475}
+{'change': -0.27786661164697996, 'description': 'Appian Corporation - Class A Common Stock', 'direction': 'down', 'last': 140.0, 'symbol': 'APPN', 'totalVolume': 7558362}
+{'change': -0.26924453992123165, 'description': 'Nikola Corporation - Common Stock', 'direction': 'down', 'last': 20.41, 'symbol': 'NKLA', 'totalVolume': 93959449}
+{'change': -0.1393063583815029, 'description': 'Newborn Acquisition Corp. - Ordinary Shares', 'direction': 'down', 'last': 14.89, 'symbol': 
+'NBAC', 'totalVolume': 2823098}
+{'change': -0.13235294117647062, 'description': 'Kaixin Auto Holdings - Ordinary Share', 'direction': 'down', 'last': 6.49, 'symbol': 'KXIN', 'totalVolume': 1912097}
+{'change': -0.13043478260869565, 'description': 'Canaan Inc. - American Depositary Shares', 'direction': 'down', 'last': 5.0, 'symbol': 'CAN', 'totalVolume': 10235904}
+{'change': -0.1266323703996834, 'description': 'GreenPower Motor Company Inc. - Common Shares', 'direction': 'down', 'last': 22.07, 'symbol': 'GP', 'totalVolume': 2492775}
+{'change': -0.11813842482100251, 'description': 'AYRO, Inc. - Common Stock', 'direction': 'down', 'last': 7.39, 'symbol': 'AYRO', 'totalVolume': 4393538}
+{'change': -0.10563503445381088, 'description': 'BeiGene, Ltd. - American Depositary Shares', 'direction': 'down', 'last': 255.69, 'symbol': 'BGNE', 'totalVolume': 5216160}
+{'change': -0.10175438596491229, 'description': 'Net Element, Inc. - Common Stock', 'direction': 'down', 'last': 10.24, 'symbol': 'NETE', 'totalVolume': 907561}
+{'change': -0.04523053334793556, 'description': 'Chevron Corporation Common Stock', 'direction': 'down', 'last': 87.18, 'symbol': 'CVX', 'totalVolume': 24918070}
+{'change': -0.043140794223826724, 'description': 'Dow Inc. Common Stock', 'direction': 'down', 'last': 53.01, 'symbol': 'DOW', 'totalVolume': 20139957}
+{'change': -0.03562927700089253, 'description': 'The Travelers Companies, Inc. Common Stock', 'direction': 'down', 'last': 129.65, 'symbol': 'TRV', 'totalVolume': 8981400}
+{'change': -0.027553209041412337, 'description': 'JP Morgan Chase & Co. Common Stock', 'direction': 'down', 'last': 117.88, 'symbol': 'JPM', 'totalVolume': 25601251}
+{'change': -0.026743648960738994, 'description': 'Boeing Company (The) Common Stock', 'direction': 'down', 'last': 210.71, 'symbol': 'BA', 'totalVolume': 18486569}
+{'change': -0.026216513060503363, 'description': 'Honeywell International Inc. Common Stock', 'direction': 'down', 'last': 203.92, 'symbol': 'HON', 'totalVolume': 19080698}
+{'change': -0.025384615384615436, 'description': 'Walgreens Boots Alliance, Inc. - Common Stock', 'direction': 'down', 'last': 38.01, 'symbol': 'WBA', 'totalVolume': 13856965}
+{'change': -0.023517440217084046, 'description': '3M Company Common Stock', 'direction': 'down', 'last': 172.73, 'symbol': 'MMM', 'totalVolume': 17492102}
+{'change': -0.020872865275142337, 'description': 'Coca-Cola Company (The) Common Stock', 'direction': 'down', 'last': 51.6, 'symbol': 'KO', 
+'totalVolume': 126567253}
+{'change': -0.02047578589634662, 'description': 'Goldman Sachs Group, Inc. (The) Common Stock', 'direction': 'down', 'last': 230.58, 'symbol': 'GS', 'totalVolume': 4749361}
+{'change': -0.08846976472875748, 'description': 'EOG Resources, Inc. Common Stock', 'direction': 'down', 'last': 46.88, 'symbol': 'EOG', 'totalVolume': 22383086}
+{'change': -0.08621786136095208, 'description': 'Pioneer Natural Resources Company Common Stock', 'direction': 'down', 'last': 100.58, 'symbol': 'PXD', 'totalVolume': 7429780}
+{'change': -0.08180147058823534, 'description': 'Diamondback Energy, Inc. - Commmon Stock', 'direction': 'down', 'last': 39.96, 'symbol': 'FANG', 'totalVolume': 16578884}
+{'change': -0.07526881720430105, 'description': 'ConocoPhillips Common Stock', 'direction': 'down', 'last': 39.56, 'symbol': 'COP', 'totalVolume': 41238112}
+{'change': -0.0741427247451343, 'description': 'Carnival Corporation Common Stock', 'direction': 'down', 'last': 19.98, 'symbol': 'CCL', 'totalVolume': 112400307}
+{'change': -0.07399425287356318, 'description': 'Apache Corporation - Common Stock', 'direction': 'down', 'last': 12.89, 'symbol': 'APA', 'totalVolume': 11868166}
+{'change': -0.07357859531772576, 'description': 'TechnipFMC plc Ordinary Share', 'direction': 'down', 'last': 8.31, 'symbol': 'FTI', 'totalVolume': 12588323}
+{'change': -0.07320219284101913, 'description': 'Concho Resources Inc. Common Stock', 'direction': 'down', 'last': 57.48, 'symbol': 'CXO', 'totalVolume': 7264445}
+{'change': -0.07128621799785383, 'description': 'Phillips 66 Common Stock', 'direction': 'down', 'last': 60.58, 'symbol': 'PSX', 'totalVolume': 13141569}
+{'change': -0.07071104983257835, 'description': 'Hess Corporation Common Stock', 'direction': 'down', 'last': 47.18, 'symbol': 'HES', 'totalVolume': 12147626}
+
+movers
+KNDI -0.2834067547723935
+APPN -0.27786661164697996
+NKLA -0.26924453992123165
+NBAC -0.1393063583815029
+KXIN -0.13235294117647062
+CAN -0.13043478260869565
+GP -0.1266323703996834
+AYRO -0.11813842482100251
+BGNE -0.10563503445381088
+NETE -0.10175438596491229
+CVX -0.04523053334793556
+DOW -0.043140794223826724
+TRV -0.03562927700089253
+JPM -0.027553209041412337
+BA -0.026743648960738994
+HON -0.026216513060503363
+WBA -0.025384615384615436
+MMM -0.023517440217084046
+KO -0.020872865275142337
+GS -0.02047578589634662
+EOG -0.08846976472875748
+PXD -0.08621786136095208
+FANG -0.08180147058823534
+COP -0.07526881720430105
+CCL -0.0741427247451343
+APA -0.07399425287356318
+FTI -0.07357859531772576
+CXO -0.07320219284101913
+PSX -0.07128621799785383
+HES -0.07071104983257835
+
+(base) C:\Z\Python\TDA\OAuth>
