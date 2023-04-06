@@ -1,5 +1,5 @@
 import requests
-from credentials import client_id, username, password, redirect_uri
+from private.credentials import client_id, username, password, redirect_uri
 # from OAuth import OAuth
 
 # auth = OAuth()

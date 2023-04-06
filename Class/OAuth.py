@@ -14,7 +14,7 @@ import ast
 import os, requests, time, urllib, json
 from splinter import Browser
 from selenium import webdriver
-from credentials import client_id, username, password, redirect_uri
+from private.credentials import client_id, username, password, redirect_uri
 from pathlib import Path
 # from selenium.webdriver.common.keys import Keys
 # from pynput.keyboard import Key, Controller
@@ -24,8 +24,8 @@ class OAuth:
 	def __init__(self):
 		self.access_token = None
 		self.current_working_directory = Path.cwd()
-		self.refresh_token_file = self.current_working_directory / 'refresh_token.json'
-		self.access_token_file = self.current_working_directory / 'access_token.json'
+		self.refresh_token_file = self.current_working_directory / 'private/refresh_token.json'
+		self.access_token_file = self.current_working_directory / 'private/access_token.json'
 		print( self.refresh_token_file )
 		if not self.valid_refresh_token():
 			refresh_token = self.update_OAuth2_tokens()
