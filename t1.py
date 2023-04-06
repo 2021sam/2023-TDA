@@ -2,7 +2,8 @@ import requests
 from Class.OAuth import OAuth
 auth = OAuth()
 
-
+principles = auth.get_principles()
+print(principles)
 
 # # Get NASDAQ Movers
 # endpoint = 'https://api.tdameritrade.com/v1/marketdata/$COMPX/movers'
