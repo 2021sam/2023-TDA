@@ -50,7 +50,6 @@ class OAuth:
 			return True
 		if expiration_date < time.time():
 			print('It has been more than 90 days --> Expired Refresh Token')
-			# refresh_token = None
 			return False
 
 
