@@ -35,6 +35,9 @@ class OAuth:
 			refresh_token_data = self.read_tokens(self.refresh_token_file)
 			access_token_data = self.update_OAuth2_access_token(refresh_token_data["refresh_token"])
 			self.write_tokens(self.access_token_file, access_token_data)
+			self.access_token = access_token_data["access_token"]
+			print('Updated access token.')
+
 
 	def valid_refresh_token(self):
 		if not Path.exists(self.refresh_token_file):
