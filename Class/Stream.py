@@ -1,26 +1,18 @@
 import requests
 import dateutil.parser
-import datetime
 import json
-
+import urllib.parse
+from datetime import datetime
 from Class.OAuth import OAuth
 auth = OAuth()
 
-import urllib.parse
-from credentials import client_id, refresh_token
 
 class Stream:
 	def __init__(self):
-		# Get User Principals
-		endpoint = 'https://api.tdameritrade.com/v1/userprincipals'
-		headers = {'Authorization':'Bearer {}'.format(auth.tokens['access_token'])}
-		params = {'fields': 'streamerSubscriptionKeys,streamerConnectionInfo'}
-		content = requests.get( url = endpoint, params = params, headers = headers )
-
-		userPrincipalsResponse = content.json()
-		tokenTimeStamp = userPrincipalsResponse['streamerInfo']['tokenTimestamp']
-		date = dateutil.parser.parse(tokenTimeStamp, ignoretz = True)
-		tokenTimeStampAsMs = self.unix_time_millis(date)
+		self.principals = auth.get_principals()
+		print(self.principals)
+		userPrincipalsResponse = self.principals
+		timestamp = int(datetime.timestamp(datetime.strptime(userPrincipalsResponse['streamerInfo'].get('tokenTimestamp'), "%Y-%m-%dT%H:%M:%S%z"))) * 1000
 
 		credentials = {
 			"userid": userPrincipalsResponse['accounts'][0]['accountId'],
@@ -31,7 +23,7 @@ class Stream:
 			"usergroup": userPrincipalsResponse['streamerInfo']['userGroup'],
 			"accesslevel": userPrincipalsResponse['streamerInfo']['accessLevel'],
 			"authorized": "Y",
-			"timestamp": int(tokenTimeStampAsMs),
+			"timestamp": timestamp,
 			"appid": userPrincipalsResponse['streamerInfo']['appId'],
 			"acl": userPrincipalsResponse['streamerInfo']['acl']
 		}
@@ -44,13 +36,14 @@ class Stream:
 						"account": userPrincipalsResponse['accounts'][0]['accountId'],
 						"source": userPrincipalsResponse['streamerInfo']['appId'],
 						"parameters": {
-							"credential": urllib.parse.urlencode( credentials ),
+							"credential": urllib.parse.urlencode(credentials),
 							"token": userPrincipalsResponse['streamerInfo']['token'],
 							"version": "1.0"
 						}
 					}
 			]
 		}
+
 		qos_request = {
 			"requests": [
 					{
@@ -65,29 +58,45 @@ class Stream:
 					}
 			]
 		}
-		quote_request = {
+
+		quote_sub_request = {
 			"requests": [
 					{
 						"service": "QUOTE",
 						"command": "SUBS",
-						"requestid": '2',
+						"requestid": "2",
 						"account": userPrincipalsResponse['accounts'][0]['accountId'],
 						"source": userPrincipalsResponse['streamerInfo']['appId'],
 						"parameters": {
-							"keys": 'SPY, QQQ, AAPL, BA',
-							"fields": '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16'
+							"keys": "SPY, QQQ, AAPL, BA",
+							"fields": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16"
 						}
 					}
 			]
 		}
 
-		self.userPrincipalsResponse = userPrincipalsResponse
-		# encode requests
+		quote_unsub_request = {
+			"requests": [
+					{
+						"service": "QUOTE",
+						"command": "UNSUBS",
+						"requestid": '2',
+						"account": userPrincipalsResponse['accounts'][0]['accountId'],
+						"source": userPrincipalsResponse['streamerInfo']['appId'],
+						"parameters": {
+							"keys": 'SPY, QQQ, AAPL, BA',
+							"fields": '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
+							"frequency": "m1"
+						}
+					}
+			]
+		}
+
 		self.login = json.dumps(login_request)
 		self.qos = json.dumps(qos_request)
-		self.quote = json.dumps(quote_request)
+		self.quote_sub = json.dumps(quote_sub_request)
 
 
 	def unix_time_millis(self, dt):
-		epoch = datetime.datetime.utcfromtimestamp(0)
+		epoch = datetime.utcfromtimestamp(0)
 		return (dt - epoch).total_seconds() * 1000.0

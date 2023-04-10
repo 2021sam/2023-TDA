@@ -22,7 +22,7 @@ from pathlib import Path
 
 class OAuth:
 	def __init__(self):
-		self.access_token = None
+		self.access_token = ''
 		self.current_working_directory = Path.cwd()
 		self.refresh_token_file = self.current_working_directory / 'private/refresh_token.json'
 		self.access_token_file = self.current_working_directory / 'private/access_token.json'
@@ -34,6 +34,8 @@ class OAuth:
 		if not self.valid_access_token():
 			refresh_token_data = self.read_tokens(self.refresh_token_file)
 			access_token_data = self.update_OAuth2_access_token(refresh_token_data["refresh_token"])
+			print('Should be a dictionary --->')
+			print( type( access_token_data ))
 			self.write_tokens(self.access_token_file, access_token_data)
 			self.access_token = access_token_data["access_token"]
 			print('Updated access token.')
@@ -151,18 +153,21 @@ class OAuth:
 		response = requests.post(url, headers = headers, data = payload)
 		token = response.json()
 		token["time"] = int(time.time())
-		token = json.dumps(token)		# Formatting with double quotes
+		token_string = json.dumps(token)		# Formatting with double quotes
+		token = json.loads(token_string)
 		return token
 
 
-	def get_principles(self):
+	def get_principals(self):
 		if not self.access_token:
 			print('get_principles -> no access token')
 			access_token_data = self.read_tokens(self.access_token_file)
 			self.access_token = access_token_data["access_token"]
-
 		endpoint = 'https://api.tdameritrade.com/v1/userprincipals'
 		headers = {'Authorization':'Bearer {}'.format(self.access_token)}
-		# params = {'direction': 'down', 'change': 'percent'}
-		content = requests.get( url = endpoint, headers = headers )
-		return content.json()
+		params = {'fields': 'streamerSubscriptionKeys,streamerConnectionInfo'}
+		content = requests.get( url = endpoint, params = params, headers = headers )
+		principals = content.json()
+		principals_string = json.dumps(principals)
+		principals_json = json.loads(principals_string)
+		return principals_json

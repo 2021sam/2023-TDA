@@ -1,0 +1,15 @@
+Streaming:
+Issue:
+[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:997)
+[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:997) - goodbye
+WebSocket connection closed with status code: None
+Close message: None
+
+Solution:
+5. Update SSL certificate with certifi (MacOS only)
+
+All we would have to do is to run command with the following piece of code:
+
+- Press "command + space" button or open Spotlight
+- type "Install Certificates.command" 
+What this command does is update our system’s SSL certificate directory for MacOS.
