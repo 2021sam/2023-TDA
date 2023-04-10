@@ -1,18 +1,27 @@
+#   2023.04.10 - Working
+
 # pip install python-dateutil
 import websocket        # pip install websocket-client
 import json, urllib
 from datetime import datetime
 from Class.Stream import Stream
 stream = Stream()
-
+file_name = 'message4.json'
 subscribed = 0
 message_count = 0
+m = 0
 def on_message(ws, message):
     global subscribed
     global message_count
-    message = json.loads(message)
+    message_json = json.loads(message)
     print("*****Received message")
     print(message)
+    
+    # d = {m: message }
+
+    f = open(file_name, "a")
+    f.write(message + ',\n')
+    f.close()
 
     if subscribed == 0:
         subscribed = 1
@@ -51,6 +60,11 @@ def on_close(ws, close_status_code, close_msg):
     print("WebSocket connection closed with status code:", close_status_code)
     print("Close message:", close_msg)
 
+
+
+f = open(file_name, "w+")
+f.write('[\n')
+f.close()
 websocket.enableTrace(True)
 websocket_url = 'wss://' + stream.principals['streamerInfo']['streamerSocketUrl'] + '/ws'
 print(websocket_url)
