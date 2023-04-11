@@ -1,9 +1,7 @@
-import requests
 # import dateutil.parser
-import json
-import urllib.parse
+import requests, json, urllib.parse
 from datetime import datetime
-from Class.OAuth import OAuth
+from TDA.OAuth import OAuth
 auth = OAuth()
 
 

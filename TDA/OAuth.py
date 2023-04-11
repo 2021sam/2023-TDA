@@ -28,18 +28,18 @@ class OAuth:
 		self.access_token_file = self.current_working_directory / 'private/access_token.json'
 		print( self.refresh_token_file )
 		if not self.valid_refresh_token():
-			refresh_token = self.update_OAuth2_tokens()
-			self.write_tokens(self.refresh_token_file, refresh_token)
+			refresh_token_data = self.update_tokens()
+			self.write_tokens(self.refresh_token_file, refresh_token_data)
+			print('Updated 90 day refresh token.')
 
 		if not self.valid_access_token():
 			refresh_token_data = self.read_tokens(self.refresh_token_file)
-			access_token_data = self.update_OAuth2_access_token(refresh_token_data["refresh_token"])
+			access_token_data = self.update_access_token(refresh_token_data["refresh_token"])
 			print('Should be a dictionary --->')
 			print( type( access_token_data ))
 			self.write_tokens(self.access_token_file, access_token_data)
 			self.access_token = access_token_data["access_token"]
-			print('Updated access token.')
-
+			print('Updated 30 minute access token.')
 
 	def valid_refresh_token(self):
 		if not Path.exists(self.refresh_token_file):
@@ -93,8 +93,13 @@ class OAuth:
 		print('File Saved')
 		print()
 
+	def update_tokens(self):
+		authorization_code = self.get_authorization_code()
+		refresh_token_data = self.update_refresh_token(authorization_code)
+		print(refresh_token_data)
+		return refresh_token_data
 
-	def update_OAuth2_tokens(self):
+	def get_authorization_code(self):
 		# Chrome, Help, About Google Chrome → version needs to match driver.
 		executable_path = {'executable_path': r'C:\Z\drivers\chromedriver.exe'}
 		browser = Browser('chrome', **executable_path, headless = False)
@@ -112,7 +117,6 @@ class OAuth:
 		browser.find_by_id("smscode0").first.fill(" ")
 		# Need time to manually enter TDA text key
 		time.sleep(30)
-
 		# Click to 'Continue'
 		browser.find_by_id("accept").first.click()
 		time.sleep(3)
@@ -121,11 +125,9 @@ class OAuth:
 		time.sleep(3)
 		authorization_code = urllib.parse.unquote(browser.url.split('code=')[1])
 		browser.quit()
-		refresh_token_data = self.update_OAuth2_refresh_token(authorization_code)
-		print(refresh_token_data)
-		return refresh_token_data
+		return authorization_code
 
-	def update_OAuth2_refresh_token(self, authorization_code):
+	def update_refresh_token(self, authorization_code):
 		url = r'https://api.tdameritrade.com/v1/oauth2/token'
 		headers = {'Content-Type':"application/x-www-form-urlencoded"}
 		payload = {
@@ -141,7 +143,7 @@ class OAuth:
 		return json.dumps(token)
 
 
-	def update_OAuth2_access_token(self, refresh_token):
+	def update_access_token(self, refresh_token):
 		url = r'https://api.tdameritrade.com/v1/oauth2/token'
 		headers = {'Content-Type':"application/x-www-form-urlencoded"}
 		payload = {

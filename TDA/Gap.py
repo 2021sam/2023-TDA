@@ -1,6 +1,5 @@
 import requests
-# from OAuth import OAuth
-from Class.OAuth import OAuth
+from OAuth import OAuth
 auth = OAuth()
 
 class Gap:

@@ -4,7 +4,8 @@
 import websocket        # pip install websocket-client
 import json, urllib
 from datetime import datetime
-from Class.Stream import Stream
+from TDA.Stream import Stream
+
 stream = Stream()
 file_name = 'message4.json'
 subscribed = 0
