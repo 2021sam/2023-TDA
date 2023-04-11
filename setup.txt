@@ -13,3 +13,14 @@ All we would have to do is to run command with the following piece of code:
 - Press "command + space" button or open Spotlight
 - type "Install Certificates.command" 
 What this command does is update our system’s SSL certificate directory for MacOS.
+
+
+psql
+
+DROP TABLE stock;
+
+CREATE TABLE stock (
+    id INTEGER PRIMARY KEY,
+    timestamp BIGINT,
+    symbol varchar(4)
+);
