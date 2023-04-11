@@ -16,9 +16,6 @@ def on_message(ws, message):
     message_json = json.loads(message)
     print("*****Received message")
     print(message)
-    
-    # d = {m: message }
-
     f = open(file_name, "a")
     f.write(message + ',\n')
     f.close()
