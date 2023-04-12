@@ -16,7 +16,7 @@ def on_message(ws, message):
     global subscribed
     global message_count
     message_json = json.loads(message)
-    print("*****Received message")
+    # print("*****Received message")
     # print(message)
     if 'data' in message_json:
         data = message_json['data'][0]
@@ -24,11 +24,12 @@ def on_message(ws, message):
         if 'content' in data.keys():
             content = data['content']
             data_row = extract_stock_content(data['timestamp'], content)
-            query = f'INSERT INTO stock1 (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_row}'
-            print('query')
-            print(query)
-            print('.')
-            insert(query)
+            if data_row:
+                query = f'INSERT INTO stock1 (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_row}'
+                # print('query')
+                print(query)
+                # print('.')
+                insert(query)
 
     f = open(file_name, "a")
     f.write(message + ',\n')
