@@ -7,7 +7,7 @@ from datetime import datetime
 from TDA.Stream import Stream
 
 stream = Stream()
-file_name = 'message4.json'
+file_name = 'message8.json'
 subscribed = 0
 message_count = 0
 m = 0
@@ -16,7 +16,17 @@ def on_message(ws, message):
     global message_count
     message_json = json.loads(message)
     print("*****Received message")
-    print(message)
+    # print(message)
+    if 'data' in message_json:
+        data = message_json['data'][0]
+        print(data.keys())
+        # ['service', 'timestamp', 'command', 'content']
+        print( data['service'] )
+        print( data['timestamp'] )
+        print( data['command'] )
+        print( data['content'] )
+        print( data['content'])
+
     f = open(file_name, "a")
     f.write(message + ',\n')
     f.close()

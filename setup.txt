@@ -24,3 +24,39 @@ CREATE TABLE stock (
     timestamp BIGINT,
     symbol varchar(4)
 );
+
+INSERT INTO stock (id, timestamp, symbol) VALUES (1, 2, 'aaa');
+
+
+CREATE TABLE stock4 (
+    id SERIAL PRIMARY KEY,
+    timestamp BIGINT,
+    symbol varchar(4)
+);
+
+INSERT INTO stock (timestamp, symbol) VALUES (2, 'aaa');
+
+
+*****Received message
+dict_keys(['service', 'timestamp', 'command', 'content'])
+++Rcv raw: b'\x81~\x00\xa7{"data":[{"service":"QUOTE", "timestamp":1681244131501,"command":"SUBS","content":[{"key":"AAPL","1":160.81,"4":2,"5":5,"11":58530},{"key":"QQQ","5":15,"11":58531}]}]}'
+++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244131501,"command":"SUBS","content":[{"key":"AAPL","1":160.81,"4":2,"5":5,"11":58530},{"key":"QQQ","5":15,"11":58531}]}]}'
+*****Received message
+dict_keys(['service', 'timestamp', 'command', 'content'])
+++Rcv raw: b'\x81~\x00\xcc{"data":[{"service":"QUOTE", "timestamp":1681244132037,"command":"SUBS","content":[{"key":"SPY","1":409.91,"2":409.93,"3":409.91,"4":11,"5":15,"6":"P","7":"P","8":58080371,"9":1,"10":58531,"11":58531}]}]}'
+++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244132037,"command":"SUBS","content":[{"key":"SPY","1":409.91,"2":409.93,"3":409.91,"4":11,"5":15,"6":"P","7":"P","8":58080371,"9":1,"10":58531,"11":58531}]}]}'
+*****Received message
+dict_keys(['service', 'timestamp', 'command', 'content'])
+++Rcv raw: b'\x81~\x00\x97{"data":[{"service":"QUOTE", "timestamp":1681244132558,"command":"SUBS","content":[{"key":"SPY","7":"K","11":58532},{"key":"QQQ","4":10,"11":58532}]}]}'
+++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244132558,"command":"SUBS","content":[{"key":"SPY","7":"K","11":58532},{"key":"QQQ","4":10,"11":58532}]}]}'
+*****Received message
+dict_keys(['service', 'timestamp', 'command', 'content'])
+++Rcv raw: b'\x81~\x00\x9c{"data":[{"service":"QUOTE", "timestamp":1681244133092,"command":"SUBS","content":[{"key":"QQQ","3":315.95,"4":11,"7":"Z","8":39364300,"9":0,"10":58532}]}]}'
+++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244133092,"command":"SUBS","content":[{"key":"QQQ","3":315.95,"4":11,"7":"Z","8":39364300,"9":0,"10":58532}]}]}'
+*****Received message
+dict_keys(['service', 'timestamp', 'command', 'content'])
+++Rcv raw: b'\x81~\x00\xef{"data":[{"service":"QUOTE", "timestamp":1681244133602,"command":"SUBS","content":[{"key":"SPY","1":409.9,"2":409.91,"4":16,"5":1,"6":"T","7":"Z","8":58084771,"9":11,"10":58533,"11":58533},{"key":"QQQ","5":8,"6":"X","7":"P","11":58533}]}]}'
+++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244133602,"command":"SUBS","content":[{"key":"SPY","1":409.9,"2":409.91,"4":16,"5":1,"6":"T","7":"Z","8":58084771,"9":11,"10":58533,"11":58533},{"key":"QQQ","5":8,"6":"X","7":"P","11":58533}]}]}'
+*****Received message
+dict_keys(['service', 'timestamp', 'command', 'content'])
+^C
