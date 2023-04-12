@@ -23,14 +23,12 @@ def on_message(ws, message):
         # print(data.keys())
         if 'content' in data.keys():
             content = data['content']
-            extract_stock_content(data['timestamp'], content)
-        # ['service', 'timestamp', 'command', 'content']
-        # print( data['service'] )
-        # print( data['timestamp'] )
-        # print( data['command'] )
-        # print( data['content'] )
-        # print( data['content'])
-
+            data_row = extract_stock_content(data['timestamp'], content)
+            query = f'INSERT INTO stock1 (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_row}'
+            print('query')
+            print(query)
+            print('.')
+            insert(query)
 
     f = open(file_name, "a")
     f.write(message + ',\n')
@@ -142,11 +140,7 @@ def extract_stock_content(timestamp, content):
                 print('_16_', end = '')
 
             data_tuple = ( timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid )
-            query = f'INSERT INTO stock1 (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_tuple}'
-            print('query')
-            print(query)
-            print('.')
-            insert(query)
+            return data_tuple
 
 def insert(query):
     with psycopg.connect("dbname=samsuper user=samsuper") as conn:
