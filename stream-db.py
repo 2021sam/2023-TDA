@@ -146,9 +146,9 @@ def extract_stock_content(timestamp, content):
             print('query')
             print(query)
             print('.')
-            insert(query, data_tuple)
+            insert(query)
 
-def insert(query, data_tuple):
+def insert(query):
     with psycopg.connect("dbname=samsuper user=samsuper") as conn:
         with conn.cursor() as cur:
             cur.execute(query)
