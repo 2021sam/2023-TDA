@@ -31,20 +31,8 @@ with psycopg.connect("dbname=samsuper user=samsuper") as conn:
                 exchangeid varchar(10))
             """)
 
-
-# "content":[{"key":"SPY","1":409.91,"2":409.93,"3":409.91,"4":11,"5":15,"6":"P","7":"P","8":58080371,"9":1,"10":58531,"11":58531}]}]}'
-
-        # Pass data to fill a query placeholders and let Psycopg perform
-        # the correct conversion (no SQL injections!)
-        # symbol = content
-        # cur.execute(
-        #     "INSERT INTO stock6 (timestamp, symbol) VALUES (%s, %s)",
-        #     (20, "bbb"))
-
-        # Query the database and obtain data as Python objects.
-        cur.execute("SELECT * FROM stock5")
+        cur.execute("SELECT * FROM stock1")
         t = cur.fetchall()
-        # will return (1, 100, "abc'def")
 
         # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
         # of several records, or even iterate on the cursor
