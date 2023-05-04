@@ -72,7 +72,7 @@ def index() -> str:
             <p>
             <h1>Market API End Points</h1>
             <a href="http://localhost:8000/lastid">Get last id</a><br>
-            <a href="http://localhost:8000/after/1000">Get Market Data from id</a><br>
+            <a href="http://localhost:8000/after/28990">Get Market Data after id</a><br>
             <a href="http://localhost:8000/1/">Get Stock where id = 1</a><br>
             <a href="http://localhost:8000/all">Get all Market Data</a>
         </body>
@@ -80,12 +80,6 @@ def index() -> str:
     """
     # return menu
     return HTMLResponse(content=menu, status_code=200)
-
-
-@app.get("/{id}")
-def get_id(id) -> dict:
-    # stock = get_stock(id)
-    return {'stock': 5}
 
 
 @app.get("/all")
@@ -100,9 +94,12 @@ def from_id(id) -> dict:
     return {'market': stocks}
 
 
-@app.get("/last/")
+@app.get("/lastid")
 def lastid() -> dict:
-    # id = get_last_id()
-    # return {"last_id": id}
-    print("working so far")
-    return {"last_id": 2}
+    id = get_last_id()
+    return {"last_id": id}
+
+@app.get("/{id}")
+def get_id(id) -> dict:
+    stock = get_stock(id)
+    return {'stock': stock}
