@@ -15,7 +15,35 @@ All we would have to do is to run command with the following piece of code:
 What this command does is update our system’s SSL certificate directory for MacOS.
 
 
+
+Steps to execute project:
+1.  Launch Postgres
+2.  PGAdmin:
+        Host name:  localhost
+        Port:       5432
+        Maintenance db: postgres
+        Username:   postgres
+        Password:   sam
+
+3.  activate environment
+4.  python3 -m uvicorn api:app --reload
+5.  localhost:8000
+
+
+
 psql
+\conninfo
+
+\c samsuper
+
+\l List databases
+
+\d List tables
+ALTER USER samsuper WITH PASSWORD sam
+
+\password
+
+
 
 DROP TABLE stock;
 
