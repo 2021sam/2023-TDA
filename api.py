@@ -1,4 +1,23 @@
 # python3 -m uvicorn api:app --reload
+#   Needs to provide:
+    # 1.  Data points by day.
+    # 2.  Moving average
+    # 3.  Standard Deviation
+    # 4.  Get days of consecutive data.
+    # 5.  get data for last day.
+    # 6.  Determine break outs
+    # 7.  Determine blood in the streets & FOMO
+    # 8. Low & high for 30 day, 7 day, 1 day, 1 hour, 1 minute.
+    # 9. 10 second high low.
+    # trigger last greatest pulse of fat finger.
+    # 10. Gap up, gap down, percentage of gap.
+    # 11. Acceleration / pulse, slow down, retreat, fail to continue.
+    # 12. Average move in 1 minute,
+    # 13. Average move in 10 seconds.
+    # 14. Biggest move in 10 minutes.
+
+# Step:
+# 1.    Get given data points.
 
 
 import psycopg
