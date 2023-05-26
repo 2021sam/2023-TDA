@@ -33,7 +33,9 @@ class OAuth:
 			print('Updated 90 day refresh token.')
 
 		if not self.valid_access_token():
+			# print('self.valid_access_token()')
 			refresh_token_data = self.read_tokens(self.refresh_token_file)
+			# print(f'refresh_token_data = {refresh_token_data}')
 			access_token_data = self.update_access_token(refresh_token_data["refresh_token"])
 			print('Should be a dictionary --->')
 			print( type( access_token_data ))
@@ -62,8 +64,12 @@ class OAuth:
 		if not Path.exists(self.access_token_file):
 			print('Access Token File does not exist.')
 			return False
-	
 		access_token_data = self.read_tokens(self.access_token_file)
+		print(f'access_token_data: {access_token_data}')
+		if not access_token_data:
+			#	The file may accidentally be empty.
+			return False
+
 		seconds_to_expire = access_token_data["time"] + access_token_data["expires_in"] - time.time()
 		print(f'seconds_to_expire = {seconds_to_expire}')
 		if seconds_to_expire > 0:
@@ -79,12 +85,16 @@ class OAuth:
 		if Path.exists(file_name):
 			f = open(file_name, "r")
 			contents = f.read()
+			print(f'contents: {contents}')
+			if not contents:
+				# run time error could cause empty file.
+				os.remove(file_name)
+				return {}
 			d = ast.literal_eval(contents)
 			return d
 		else:
 			print(f'{file_name} does not exist.')
 			return {}
-
 
 	def write_tokens(self, file_name, tokens):
 		f = open(file_name, "w+")
