@@ -1,3 +1,26 @@
+pip install websocket-client
+pip install websocket-client
+pip install requests
+pip install splinter
+pip install selenium
+from project folder:
+    create folder named private
+    create credentials.py file
+    client_id is the name of the TDA app.
+    
+
+
+https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/mac-x64/chrome-mac-x64.zip
+Press Command + Shift + . (the period key). This will show hidden files in the folder.
+Finder to get to root directory:
+hit Command+Shift+G, then type / and hit return to jump to root
+
+https://sites.google.com/chromium.org/driver/getting-started?authuser=0
+https://www.swtestacademy.com/install-chrome-driver-on-mac/#:~:text=If%20you%20face%20“Error%3A%20“,tests%2C%20chrome%20driver%20will%20work.
+Step2: Move the driver to the /usr/local/bin folder
+
+
+
 Streaming:
 Issue:
 [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:997)

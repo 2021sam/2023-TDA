@@ -7,7 +7,7 @@ from datetime import datetime
 from TDA.Stream import Stream
 
 stream = Stream()
-file_name = 'message8.json'
+file_name = 'message5.json'
 subscribed = 0
 message_count = 0
 m = 0

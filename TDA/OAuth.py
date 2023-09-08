@@ -111,12 +111,18 @@ class OAuth:
 
 	def get_authorization_code(self):
 		# Chrome, Help, About Google Chrome → version needs to match driver.
-		executable_path = {'executable_path': r'C:\Z\drivers\chromedriver.exe'}
-		browser = Browser('chrome', **executable_path, headless = False)
+		# chrome 14 & prior:
+		# executable_path = {'executable_path': r'C:\Z\drivers\chromedriver.exe'}
+		# browser = Browser('chrome', **executable_path, headless = False)
+
+		# Version 116.0.5845.179 (Official Build) (x86_64)
+		# Chrome 115 & newer does not need executable_path
+		browser = Browser('chrome', headless = False)
 		method = 'GET'
 		url = 'https://auth.tdameritrade.com/auth?'
 		payload = {'response_type':'code', 'redirect_uri':redirect_uri, 'client_id':client_id + '@AMER.OAUTHAP'}
 		oauth_url = requests.Request(method, url, params = payload).prepare()
+
 		browser.visit(oauth_url.url)
 		browser.find_by_id("username0").first.fill(username)
 		browser.find_by_id("password1").first.fill(password)
