@@ -4,4 +4,4 @@ access_token.json
 refresh_token.json
 stock1.json
 message?.json
-credentials.py
+private/credentials.py
