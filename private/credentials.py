@@ -1,0 +1,6 @@
+client_id = 'TDA App - Consumer Key'
+username = 'tda_login_username'
+password = 'tda_login_password'
+redirect_uri = 'https://127.0.0.1'
+dbname = 'tdaschwab'
+dbuser = 'tdasam'

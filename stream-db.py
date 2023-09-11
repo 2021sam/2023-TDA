@@ -1,4 +1,4 @@
-#   2023.04.10 - Working
+#   2023.09.10 - init_db_table()
 
 # pip install python-dateutil
 import websocket        # pip install websocket-client
@@ -6,12 +6,27 @@ import json, urllib
 import psycopg2 as psycopg
 from datetime import datetime
 from TDA.Stream import Stream
+from private.credentials import dbname, dbuser
+from db_tools import DBTOOLS
+
 
 stream = Stream()
-file_name = 'stock1.json'
+# file_name = 'stock.json'
 subscribed = 0
 message_count = 0
 m = 0
+
+
+
+def init_db_table():
+    db = DBTOOLS(dbname, dbuser)
+    table_exists = False
+    while not table_exists:
+        table_exists = db.table_exists('stock')
+        print(f'r = {table_exists}')
+        if not table_exists:
+            db.table_create('stock')
+
 def on_message(ws, message):
     global subscribed
     global message_count
@@ -25,15 +40,15 @@ def on_message(ws, message):
             content = data['content']
             data_row = extract_stock_content(data['timestamp'], content)
             if data_row:
-                query = f'INSERT INTO stock1 (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_row}'
+                query = f'INSERT INTO stock (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_row}'
                 # print('query')
                 print(query)
                 # print('.')
                 insert(query)
 
-    f = open(file_name, "a")
-    f.write(message + ',\n')
-    f.close()
+    # f = open(file_name, "a")
+    # f.write(message + ',\n')
+    # f.close()
 
     if subscribed == 0:
         subscribed = 1
@@ -144,15 +159,18 @@ def extract_stock_content(timestamp, content):
             return data_tuple
 
 def insert(query):
-    with psycopg.connect("dbname=samsuper user=samsuper") as conn:
+    with psycopg.connect(f"dbname={dbname} user={dbuser}") as conn:
         with conn.cursor() as cur:
             cur.execute(query)
             conn.commit()
 
 
-f = open(file_name, "w+")
-f.write('[\n')
-f.close()
+# f = open(file_name, "w+")
+# f.write('[\n')
+# f.close()
+
+init_db_table()
+
 websocket.enableTrace(True)
 websocket_url = 'wss://' + stream.principals['streamerInfo']['streamerSocketUrl'] + '/ws'
 print(websocket_url)

@@ -1,16 +1,43 @@
-pip install websocket-client
+Step 1:
+1.  Install Postgres:   https://postgresapp.com/downloads.html
+1.  Launch Postgres
+2.  Launch Terminal PSQL
+3.  PGAdmin:
+        Host name:  localhost
+        Port:       5432
+        Maintenance db: schwab
+        Username:   supersam
+        Password:
+
+
+            psql
+            CREATE DATABASE schwab OWNER supersam;
+                \conninfo
+                \c schwab
+                \l List databases
+                \d List tables
+                ALTER USER samsuper WITH PASSWORD sam
+                \password
+                DROP TABLE stock;
+                CREATE TABLE stock (
+                    id INTEGER PRIMARY KEY,
+                    timestamp BIGINT,
+                    symbol varchar(4)
+                );
+
+
+
+
+Step 2:
+pip install --upgrade pip
 pip install websocket-client
 pip install requests
 pip install splinter
 pip install selenium
-from project folder:
-    create folder named private
-    create credentials.py file
-    client_id is the name of the TDA app.
-
-pip install --upgrade pip
-pip install websocket-client
 pip install psycopg2-binary
+from project folder:
+    client_id is the name of the TDA app.
+    edit credentials.py file with Top Secret credentials
 
 
 https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/mac-x64/chrome-mac-x64.zip
@@ -23,94 +50,6 @@ https://www.swtestacademy.com/install-chrome-driver-on-mac/#:~:text=If%20you%20f
 Step2: Move the driver to the /usr/local/bin folder
 
 
-
-Streaming:
-Issue:
-[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:997)
-[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:997) - goodbye
-WebSocket connection closed with status code: None
-Close message: None
-
-Solution:
-5. Update SSL certificate with certifi (MacOS only)
-
-All we would have to do is to run command with the following piece of code:
-
-- Press "command + space" button or open Spotlight
-- type "Install Certificates.command" 
-What this command does is update our system’s SSL certificate directory for MacOS.
-
-
-
-Steps to execute project:
-1.  Launch Postgres
-2.  PGAdmin:
-        Host name:  localhost
-        Port:       5432
-        Maintenance db: postgres
-        Username:   postgres
-        Password:   sam
-
 3.  activate environment
 4.  python3 -m uvicorn api:app --reload
 5.  localhost:8000
-
-
-
-psql
-\conninfo
-
-\c samsuper
-
-\l List databases
-
-\d List tables
-ALTER USER samsuper WITH PASSWORD sam
-
-\password
-
-
-
-DROP TABLE stock;
-
-CREATE TABLE stock (
-    id INTEGER PRIMARY KEY,
-    timestamp BIGINT,
-    symbol varchar(4)
-);
-
-INSERT INTO stock (id, timestamp, symbol) VALUES (1, 2, 'aaa');
-
-
-CREATE TABLE stock4 (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT,
-    symbol varchar(4)
-);
-
-INSERT INTO stock (timestamp, symbol) VALUES (2, 'aaa');
-
-
-*****Received message
-dict_keys(['service', 'timestamp', 'command', 'content'])
-++Rcv raw: b'\x81~\x00\xa7{"data":[{"service":"QUOTE", "timestamp":1681244131501,"command":"SUBS","content":[{"key":"AAPL","1":160.81,"4":2,"5":5,"11":58530},{"key":"QQQ","5":15,"11":58531}]}]}'
-++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244131501,"command":"SUBS","content":[{"key":"AAPL","1":160.81,"4":2,"5":5,"11":58530},{"key":"QQQ","5":15,"11":58531}]}]}'
-*****Received message
-dict_keys(['service', 'timestamp', 'command', 'content'])
-++Rcv raw: b'\x81~\x00\xcc{"data":[{"service":"QUOTE", "timestamp":1681244132037,"command":"SUBS","content":[{"key":"SPY","1":409.91,"2":409.93,"3":409.91,"4":11,"5":15,"6":"P","7":"P","8":58080371,"9":1,"10":58531,"11":58531}]}]}'
-++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244132037,"command":"SUBS","content":[{"key":"SPY","1":409.91,"2":409.93,"3":409.91,"4":11,"5":15,"6":"P","7":"P","8":58080371,"9":1,"10":58531,"11":58531}]}]}'
-*****Received message
-dict_keys(['service', 'timestamp', 'command', 'content'])
-++Rcv raw: b'\x81~\x00\x97{"data":[{"service":"QUOTE", "timestamp":1681244132558,"command":"SUBS","content":[{"key":"SPY","7":"K","11":58532},{"key":"QQQ","4":10,"11":58532}]}]}'
-++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244132558,"command":"SUBS","content":[{"key":"SPY","7":"K","11":58532},{"key":"QQQ","4":10,"11":58532}]}]}'
-*****Received message
-dict_keys(['service', 'timestamp', 'command', 'content'])
-++Rcv raw: b'\x81~\x00\x9c{"data":[{"service":"QUOTE", "timestamp":1681244133092,"command":"SUBS","content":[{"key":"QQQ","3":315.95,"4":11,"7":"Z","8":39364300,"9":0,"10":58532}]}]}'
-++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244133092,"command":"SUBS","content":[{"key":"QQQ","3":315.95,"4":11,"7":"Z","8":39364300,"9":0,"10":58532}]}]}'
-*****Received message
-dict_keys(['service', 'timestamp', 'command', 'content'])
-++Rcv raw: b'\x81~\x00\xef{"data":[{"service":"QUOTE", "timestamp":1681244133602,"command":"SUBS","content":[{"key":"SPY","1":409.9,"2":409.91,"4":16,"5":1,"6":"T","7":"Z","8":58084771,"9":11,"10":58533,"11":58533},{"key":"QQQ","5":8,"6":"X","7":"P","11":58533}]}]}'
-++Rcv decoded: fin=1 opcode=1 data=b'{"data":[{"service":"QUOTE", "timestamp":1681244133602,"command":"SUBS","content":[{"key":"SPY","1":409.9,"2":409.91,"4":16,"5":1,"6":"T","7":"Z","8":58084771,"9":11,"10":58533,"11":58533},{"key":"QQQ","5":8,"6":"X","7":"P","11":58533}]}]}'
-*****Received message
-dict_keys(['service', 'timestamp', 'command', 'content'])
-^C
