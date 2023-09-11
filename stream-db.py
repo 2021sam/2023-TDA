@@ -3,7 +3,7 @@
 # pip install python-dateutil
 import websocket        # pip install websocket-client
 import json, urllib
-import psycopg
+import psycopg2 as psycopg
 from datetime import datetime
 from TDA.Stream import Stream
 

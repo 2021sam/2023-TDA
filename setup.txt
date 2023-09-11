@@ -7,7 +7,10 @@ from project folder:
     create folder named private
     create credentials.py file
     client_id is the name of the TDA app.
-    
+
+pip install --upgrade pip
+pip install websocket-client
+pip install psycopg2-binary
 
 
 https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/mac-x64/chrome-mac-x64.zip
