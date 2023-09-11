@@ -6,7 +6,7 @@ import json, urllib
 import psycopg2 as psycopg
 from datetime import datetime
 from TDA.Stream import Stream
-from private.credentials import dbname, dbuser
+from private.credentials import default_dbname, default_dbuser, default_dbpassword, dbname, dbuser, dbhost, dbpassword, dbport
 from db_tools import DBTOOLS
 
 
@@ -18,14 +18,23 @@ m = 0
 
 
 
-def init_db_table():
-    db = DBTOOLS(dbname, dbuser)
-    table_exists = False
-    while not table_exists:
-        table_exists = db.table_exists('stock')
-        print(f'r = {table_exists}')
-        if not table_exists:
+def init_db(db):
+    exists = False
+    while not exists:
+        exists = db.db_exists()
+        print(f'db exists = {exists}')
+        if not exists:
+            db.db_create()
+
+
+def init_db_table(db):
+    exists = False
+    while not exists:
+        exists = db.table_exists('stock')
+        print(f'table exists = {exists}')
+        if not exists:
             db.table_create('stock')
+
 
 def on_message(ws, message):
     global subscribed
@@ -169,7 +178,10 @@ def insert(query):
 # f.write('[\n')
 # f.close()
 
-init_db_table()
+db = DBTOOLS(default_dbname, default_dbuser, default_dbpassword, dbname, dbuser, dbhost, dbpassword, dbport)
+init_db(db)
+init_db_table(db)
+
 
 websocket.enableTrace(True)
 websocket_url = 'wss://' + stream.principals['streamerInfo']['streamerSocketUrl'] + '/ws'

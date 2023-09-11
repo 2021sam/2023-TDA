@@ -1,3 +1,6 @@
 env
 __pycache__
-private
+access_token.json
+refresh_token.json
+stock1.json
+message?.json
