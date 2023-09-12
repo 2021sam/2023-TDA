@@ -29,15 +29,20 @@ Step 1:
 
 
 Step 2:
-pip install --upgrade pip
-pip install websocket-client
-pip install requests
-pip install splinter
-pip install selenium
-pip install psycopg2-binary
-from project folder:
-    client_id is the name of the TDA app.
-    edit credentials.py file with Top Secret credentials
+    pip install --upgrade pip
+    pip install -r requirements.txt
+
+or
+
+    pip install websocket-client
+    pip install requests
+    pip install splinter
+    pip install selenium
+    pip install psycopg2-binary
+
+    from project folder:
+        client_id is the name of the TDA app.
+        edit credentials.py file with Top Secret credentials
 
 
 https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/mac-x64/chrome-mac-x64.zip
