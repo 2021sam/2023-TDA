@@ -53,3 +53,10 @@ Step2: Move the driver to the /usr/local/bin folder
 3.  activate environment
 4.  python3 -m uvicorn api:app --reload
 5.  localhost:8000
+
+
+to remove files list under:
+Changes not staged for commit:
+    modified: .gitignore
+    git rm -r --cached .
+    git rm --cached .gitignore
