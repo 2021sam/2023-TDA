@@ -150,10 +150,16 @@ class OAuth:
 		time.sleep(2)
 		browser.find_by_id("smscode0").first.fill(" ")
 		# Need time to manually enter TDA text key
-		time.sleep(30)
+		# Check trust this computer
+		# Manually click continue
+		time.sleep(50)
+
+
 		# Click to 'Continue'
-		browser.find_by_id("accept").first.click()
-		time.sleep(3)
+		# browser.find_by_id("accept").first.click()
+		# time.sleep(3)
+
+		
 		# Click to 'Continue'
 		browser.find_by_id("accept").first.click()
 		time.sleep(3)
