@@ -28,7 +28,6 @@ class OAuth:
 		self.access_token_file = self.current_working_directory / 'private/access_token.json'
 		print( self.refresh_token_file )
 
-
 		if not self.valid_refresh_token():
 			refresh_token_data = self.update_tokens()
 			self.write_tokens(self.refresh_token_file, refresh_token_data)
@@ -49,11 +48,13 @@ class OAuth:
 				os.remove(self.access_token_file)
 				os.remove(self.refresh_token_file)
 				print('Possibly due to invalidated refresh token --> rerun')
+				exit()
+
 			if 'error' not in access_token_data:
 				self.write_tokens(self.access_token_file, access_token_data)
 				self.access_token = access_token_data["access_token"]
 				print('Updated 30 minute access token.')
-				exit()
+
 
 	def valid_refresh_token(self):
 		if not Path.exists(self.refresh_token_file):
@@ -132,7 +133,6 @@ class OAuth:
 		# chrome 14 & prior:
 		# executable_path = {'executable_path': r'C:\Z\drivers\chromedriver.exe'}
 		# browser = Browser('chrome', **executable_path, headless = False)
-
 		# Version 116.0.5845.179 (Official Build) (x86_64)
 		# Chrome 115 & newer does not need executable_path
 		browser = Browser('chrome', headless = False)
@@ -154,12 +154,10 @@ class OAuth:
 		# Manually click continue
 		time.sleep(50)
 
-
 		# Click to 'Continue'
 		# browser.find_by_id("accept").first.click()
 		# time.sleep(3)
 
-		
 		# Click to 'Continue'
 		browser.find_by_id("accept").first.click()
 		time.sleep(3)
