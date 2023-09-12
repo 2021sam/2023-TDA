@@ -27,6 +27,8 @@ class OAuth:
 		self.refresh_token_file = self.current_working_directory / 'private/refresh_token.json'
 		self.access_token_file = self.current_working_directory / 'private/access_token.json'
 		print( self.refresh_token_file )
+
+
 		if not self.valid_refresh_token():
 			refresh_token_data = self.update_tokens()
 			self.write_tokens(self.refresh_token_file, refresh_token_data)
@@ -38,10 +40,20 @@ class OAuth:
 			# print(f'refresh_token_data = {refresh_token_data}')
 			access_token_data = self.update_access_token(refresh_token_data["refresh_token"])
 			print('Should be a dictionary --->')
+			print('41 access_token:')
 			print( type( access_token_data ))
-			self.write_tokens(self.access_token_file, access_token_data)
-			self.access_token = access_token_data["access_token"]
-			print('Updated 30 minute access token.')
+			print( access_token_data )
+			if 'error' in access_token_data:
+				print('invalid access token:')
+				print( access_token_data )
+				os.remove(self.access_token_file)
+				os.remove(self.refresh_token_file)
+				print('Possibly due to invalidated refresh token --> rerun')
+			if 'error' not in access_token_data:
+				self.write_tokens(self.access_token_file, access_token_data)
+				self.access_token = access_token_data["access_token"]
+				print('Updated 30 minute access token.')
+				exit()
 
 	def valid_refresh_token(self):
 		if not Path.exists(self.refresh_token_file):
@@ -68,6 +80,9 @@ class OAuth:
 		print(f'access_token_data: {access_token_data}')
 		if not access_token_data:
 			#	The file may accidentally be empty.
+			return False
+
+		if 'expires_in' not in access_token_data:
 			return False
 
 		seconds_to_expire = access_token_data["time"] + access_token_data["expires_in"] - time.time()
@@ -97,7 +112,10 @@ class OAuth:
 			return {}
 
 	def write_tokens(self, file_name, tokens):
-		f = open(file_name, "w+")
+		print('write_tokens:')
+		print(tokens)
+		print('******************************')
+		f = open(file_name, "w")
 		f.write( str( tokens ) + '\r\n')
 		f.close()
 		print('File Saved')
@@ -145,13 +163,13 @@ class OAuth:
 
 	def update_refresh_token(self, authorization_code):
 		url = r'https://api.tdameritrade.com/v1/oauth2/token'
-		headers = {'Content-Type':"application/x-www-form-urlencoded"}
+		headers = {'Content-Type': "application/x-www-form-urlencoded"}
 		payload = {
-					'grant_type':'authorization_code',
-					'access_type':'offline',
-					'code':authorization_code,
-					'client_id':client_id,
-					'redirect_uri':redirect_uri
+					'grant_type': 'authorization_code',
+					'access_type': 'offline',
+					'code': authorization_code,
+					'client_id': client_id,
+					'redirect_uri': redirect_uri
 				}
 		response = requests.post(url, headers = headers, data = payload)
 		token = response.json()
@@ -165,8 +183,8 @@ class OAuth:
 		payload = {
 					'grant_type': 'refresh_token',
 					'refresh_token': refresh_token,
-					'client_id':client_id,
-					'redirect_uri':redirect_uri
+					'client_id': client_id,
+					'redirect_uri': redirect_uri
 				}
 		response = requests.post(url, headers = headers, data = payload)
 		token = response.json()
