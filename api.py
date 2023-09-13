@@ -20,12 +20,15 @@
 # 1.    Get given data points.
 
 
-import psycopg
-from psycopg.rows import class_row
+import psycopg2 as psycopg
+# import psycopg2
+# from psycopg.rows import class_row
+import psycopg2.extras
+
 from dataclasses import dataclass
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-
+from private.credentials import default_dbname, default_dbuser, default_dbpassword, dbname, dbuser, dbhost, dbpassword, dbport, dbtable
 app = FastAPI()
 
 
@@ -53,30 +56,36 @@ class Market:
 
 
 def select(sql):
-    with psycopg.connect("dbname=samsuper user=samsuper") as conn:
-        with conn.cursor(row_factory=class_row(Market)) as cur:
+    with psycopg.connect(f"dbname={dbname} user={dbuser}") as conn:
+        # with conn.cursor(row_factory=class_row(Market)) as cur:
+        # Connect to PostgreSQL from Python (Using SQL in Python) techTFQ
+        with conn.cursor() as cur:
             cur.execute(sql)
             return cur.fetchall()
 
 def get_last_id():
-    sql = 'SELECT * FROM stock1 ORDER BY id DESC LIMIT 1'
+    sql = f'SELECT * FROM {dbtable} ORDER BY id DESC LIMIT 1'
+    print(sql)
     stock = select(sql)
+    print(stock)
+    # print(stock[0])
     print('*****************************************************************')
-    id = stock[0].id
+    id = stock[0][0]
+    print(id)
     return id
 
 def get_stock(id):
-    sql = f'SELECT * FROM stock1 WHERE id={id}'
+    sql = f'SELECT * FROM {dbtable} WHERE id={id}'
     stock = select(sql)
     print(stock)
     return stock
 
 def get_stocks():
-    sql = 'SELECT * FROM stock1'
+    sql = f'SELECT * FROM {dbtable}'
     return select(sql)
 
 def get_stocks_after(id):
-    sql = f'SELECT * FROM stock1 WHERE id > {id}'
+    sql = f'SELECT * FROM {dbtable} WHERE id > {id}'
     return select(sql)
 
 

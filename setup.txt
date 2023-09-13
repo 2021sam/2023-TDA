@@ -65,3 +65,12 @@ Changes not staged for commit:
     modified: .gitignore
     git rm -r --cached .
     git rm --cached .gitignore
+
+
+
+
+
+api.py:
+    pip install fastapi
+    pip install uvicorn
+    

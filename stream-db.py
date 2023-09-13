@@ -51,7 +51,7 @@ def on_message(ws, message):
             if data_row:
                 query = f'INSERT INTO stock (timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid) VALUES {data_row}'
                 # print('query')
-                print(query)
+                # print(query)
                 # print('.')
                 insert(query)
 
@@ -61,15 +61,15 @@ def on_message(ws, message):
 
     if subscribed == 0:
         subscribed = 1
-        print("*****Subscribing to quote")
-        print(stream.qos)
+        # print("*****Subscribing to quote")
+        # print(stream.qos)
         ws.send(stream.qos)
         ws.send(stream.quote_sub)
 
 
     if subscribed == 1 and message_count == 0:
         message_count = 1
-        print(stream.quote_sub)
+        # print(stream.quote_sub)
 
 
     if message_count > 0:
@@ -88,8 +88,8 @@ def on_error(ws, error):
 
 def on_open(ws):
     # Subscribe to real-time data
-    print("Connection open. Send the auth message")
-    print(stream.login)
+    # print("Connection open. Send the auth message")
+    # print(stream.login)
     ws.send(stream.login)
 
 def on_close(ws, close_status_code, close_msg):
@@ -162,7 +162,7 @@ def extract_stock_content(timestamp, content):
 
             if '16' in content[i].keys():
                 exchangeid      = content[i]['16']
-                print('_16_', end = '')
+                # print('_16_', end = '')
 
             data_tuple = ( timestamp, symbol, bidprice, askprice, lastprice, bidsize, asksize, askid, bidid, totalvolume, lastsize, tradetime, quotetime, highprice, lowprice, bidtick, closeprice, exchangeid )
             return data_tuple
@@ -185,7 +185,7 @@ init_db_table(db)
 
 websocket.enableTrace(True)
 websocket_url = 'wss://' + stream.principals['streamerInfo']['streamerSocketUrl'] + '/ws'
-print(websocket_url)
+# print(websocket_url)
 ws = websocket.WebSocketApp(websocket_url,
                             on_message=on_message,
                             on_error=on_error,
