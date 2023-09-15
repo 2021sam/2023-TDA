@@ -46,19 +46,19 @@ class DB_Connect:
 
     def get_last_id(self):
         sql = f'SELECT * FROM {dbtable} ORDER BY id DESC LIMIT 1'
-        print(sql)
+        # print(sql)
         stock = self.select(sql)
-        print(stock)
+        # print(stock)
         # print(stock[0])
-        print('*****************************************************************')
+        # print('*****************************************************************')
         id = stock[0][0]
-        print(id)
+        # print(id)
         return id
 
     def get_stock(self, id):
         sql = f'SELECT * FROM {dbtable} WHERE id={id}'
         stock = self.select(sql)
-        print(stock)
+        # print(stock)
         return stock
 
     def get_stocks(self):

@@ -7,17 +7,21 @@
 
 import requests
 import json
-from api_db import db_connect
+from api_db import DB_Connect
 
 id1 = 1
 id2 = 100
 r = id2 - id1
 stock = 'AAPL'
 
-DBC = db_connect()
+DBC = DB_Connect()
 
 id = DBC.get_last_id()
 print( {"last_id": id} )
+
+stock = DBC.get_stock(id)
+print( stock )
+
 
 # endpoint = f'http://localhost:8000/{stock}/{id1}/{id2}'
 # response_API = requests.get(endpoint)
