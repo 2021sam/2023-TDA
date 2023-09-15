@@ -1,39 +1,54 @@
-# import pandas as pd
-# import yfinance as yf
-# import numpy as np
-# import matplotlib.pyplot as plt
-# data = yf.download('aapl')
-# print( data.info )
-import yfinance as yf
-# Reference:
-# pip install yfinance
-msft = yf.Ticker("MSFT")
-# get all stock info
-msft.info
-# get historical market data
-hist = msft.history(period="1mo")
-# print(hist)
-# show meta information about the history (requires history() to be called first)
-# print(msft.history_metadata)
-# print(hist['Close'].values[0])
-# close = hist['Close'].values
-close = [v for v in hist['Close'].values]
-# print(close)
-# print(len(close))
+#   LIVE
+#   Checks for big moves in archived data
 
-moving_average = []
-n = len(close)
-m = 3
-for i in range(n-1):
-    # print(v
-    move = abs( close[i+1] - close[i] )
-    # print(move)
-    moving_average.append(move)
-    # print(moving_average)
-    if len(moving_average) > m:
-        moving_average.pop(0)
-        average = sum(moving_average) / m
-        # print(average)
-        if move > 1.5 * average:
-            print('We got a BIG MOVE !')
+#   What I need
+#   Search archive & get average & min & max moves
+#   Use average & max moves to set breakpoint for live data.
 
+import requests
+import json
+from api_db import db_connect
+
+id1 = 1
+id2 = 100
+r = id2 - id1
+stock = 'AAPL'
+
+DBC = db_connect()
+
+id = DBC.get_last_id()
+print( {"last_id": id} )
+
+# endpoint = f'http://localhost:8000/{stock}/{id1}/{id2}'
+# response_API = requests.get(endpoint)
+# data = response_API.text
+# data = json.loads(data)
+# data = data['stock']
+# # print(data["stock"])
+# # for e in data:
+# #     print(e)
+
+
+# def historic_mean_max(data):
+#     changes = []
+#     max = 0
+#     n = len(data)
+#     # print(f'n = {n}')
+
+#     for i in range(n-1):
+#         # print(f'i = {i}')
+#         # print(data[i])
+#         change = abs( data[i+1][4] - data[i][4] )
+#         changes.append(change)
+
+#         if change > max:
+#             max = change
+
+#     mean = sum(changes) / n
+#     print(f'average = {mean}')
+
+#     return mean, max
+
+
+# max = historic_mean_max(data)
+# print(max)
