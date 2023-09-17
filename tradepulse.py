@@ -16,17 +16,25 @@ class Stats:
         self.symbol = symbol
         self.price = []
         self.changes = []
+        self.fatfinger = False
+        self.continuation = False
+        self.long = False
+        self.short = False
 
     def append(self, price):
         self.price.append(price)
         self.n = len(self.price)
         if self.n > 1:
+            direction = self.price[-1] - self.price[-2]
             change = abs( self.price[-1] - self.price[-2] )
             self.changes.append(change)
             self.mean = sum(self.changes) / (self.n - 1)
 
             if change > self.max:
                 self.max = change
+                self.long = direction > 0
+                self.short = direction < 0
+
 
 
 stats = Stats('AAPL')
