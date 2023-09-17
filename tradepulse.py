@@ -23,19 +23,19 @@ class Stats:
         if self.n > 1:
             change = abs( self.price[-1] - self.price[-2] )
             self.changes.append(change)
-            self.mean = sum(self.changes) / self.n
+            self.mean = sum(self.changes) / (self.n - 1)
 
             if change > self.max:
                 self.max = change
 
 
 stats = Stats('AAPL')
-live = True
+live = False
 start_id = 1
 last_live_id = 0
 start_time = time.time()
-lapse_time_seconds = 5
-# loop = True
+lapse_time_seconds = 10
+
 
 while start_time + lapse_time_seconds > time.time():
     time.sleep(1)
@@ -49,13 +49,16 @@ while start_time + lapse_time_seconds > time.time():
     else:
         id = start_id
         start_id += 1
-    print( {"id": id} )
+    # print( {"id": id} )
     stock = DBC.get_stock(id)
     # print( stock )
     stock = stock[0]
-    print(stock)
+    # print(stock)
     if symbol != stock[2]:
         continue
 
     stats.append(stock[5])
-    print(stats.price)
+    # print(stats.price)
+    # print(stats.mean, max(stats.changes))
+    if stats.n > 1:
+        print( max(stats.changes) )
