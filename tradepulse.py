@@ -1,18 +1,12 @@
-#   LIVE
-#   Checks for big moves in archived data
-
-#   What I need
-#   Search archive & get average & min & max moves
-#   Use average & max moves to set breakpoint for live data.
+#   Checks for big moves in archived & live data
 
 import requests
 import json
+import time
 from api_db import DB_Connect
 
-stock = 'AAPL'
-
 DBC = DB_Connect()
-
+symbol = 'AAPL'
 
 class Stats:
     def __init__(self, symbol):
@@ -36,13 +30,32 @@ class Stats:
 
 
 stats = Stats('AAPL')
+live = True
+start_id = 1
+last_live_id = 0
+start_time = time.time()
+lapse_time_seconds = 5
+# loop = True
 
-while True:
-    id = DBC.get_last_id()
-    print( {"last_id": id} )
+while start_time + lapse_time_seconds > time.time():
+    time.sleep(1)
+    if live:
+        id = DBC.get_last_id()
+        if last_live_id == id:
+            continue
+
+        last_live_id = id
+
+    else:
+        id = start_id
+        start_id += 1
+    print( {"id": id} )
     stock = DBC.get_stock(id)
     # print( stock )
-    if stock != stock[2]:
+    stock = stock[0]
+    print(stock)
+    if symbol != stock[2]:
         continue
 
     stats.append(stock[5])
+    print(stats.price)
