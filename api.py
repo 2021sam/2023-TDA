@@ -4,7 +4,7 @@ import psycopg2.extras
 from dataclasses import dataclass
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from private.credentials import default_dbname, default_dbuser, default_dbpassword, dbname, dbuser, dbhost, dbpassword, dbport, dbtable
+from private.credentials import default_dbname, default_dbuser, default_dbpassword, dbname, dbuser, dbhost, dbpassword, dbport
 from api_db import DB_Connect
 app = FastAPI()
 DBC = DB_Connect()
